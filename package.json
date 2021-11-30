@@ -1,0 +1,103 @@
+{
+	"name": "rails-schema",
+	"displayName": "Rails Schema",
+	"description": "This extension provides a new way to see the DB tables and columns in a Rails project.",
+	"icon": "media/rails-schema-logo.png",
+	"version": "0.0.5",
+	"publisher": "tavo",
+	"author": "Gustavo Delgado",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tavo/vscode-rails-schema-extension"
+	},
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.62.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:rails-schema.showRailsSchema",
+		"onView:RailsSchema"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "rails-schema",
+					"title": "Rails Schema",
+					"icon": "media/rails-schema-icon.png"
+				}
+			]
+		},
+		"menus": {
+			"view/item/context": [
+				{
+					"command": "rails-schema.openInSchema",
+					"when": "view == RailsSchema && viewItem == schemaTable",
+					"group": "inline"
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "rails-schema.showRailsSchema",
+				"title": "Show Rails Schema"
+			},
+			{
+				"command": "rails-schema.openInSchema",
+				"title": "open in schema",
+				"icon": {
+					"light": "media/icons8-send-file-50-black.png",
+					"dark": "media/icons8-send-file-50-white.png"
+				}
+			}
+		],
+		"keybindings": [
+			{
+				"command": "rails-schema.showRailsSchema",
+				"key": "ctrl+alt+s",
+				"mac": "cmd+ctrl+s"
+			}
+		],
+		"views": {
+			"rails-schema": [
+				{
+					"id": "RailsSchema",
+					"name": "Rails Schema"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "npm run compile-tests && npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.62.0",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^5.1.0",
+		"@typescript-eslint/parser": "^5.1.0",
+		"eslint": "^8.1.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.3",
+		"typescript": "^4.4.4",
+		"ts-loader": "^9.2.5",
+		"webpack": "^5.52.1",
+		"webpack-cli": "^4.8.0",
+		"@vscode/test-electron": "^1.6.2",
+		"vscode-uri": "^3.0.2",
+		"pluralize": "^8.0.0"
+	}
+}
