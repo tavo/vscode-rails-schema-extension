@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import * as path from "path";
 import SchemaModel from "./SchemaModel";
 import SchemaNode from "./SchemaNode";
 
@@ -19,10 +20,32 @@ export default class SchemaTreeDataProvider
   public getTreeItem(element: SchemaNode): vscode.TreeItem {
     return {
       label: element.label,
+      description: element.description,
+      tooltip: element.tooltip,
       contextValue: element.isTable ? "schemaTable" : "schemaField",
       collapsibleState: element.isTable
         ? vscode.TreeItemCollapsibleState.Collapsed
         : void 0,
+      iconPath: element.isTable
+        ? {
+            light: path.join(
+              __filename,
+              "..",
+              "..",
+              "resources",
+              "light",
+              "table.svg"
+            ),
+            dark: path.join(
+              __filename,
+              "..",
+              "..",
+              "resources",
+              "dark",
+              "table.svg"
+            ),
+          }
+        : undefined,
     };
   }
 

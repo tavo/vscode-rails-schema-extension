@@ -54,18 +54,26 @@ export default class SchemaModel {
   }
 
   private getTableFields(tableText: string): SchemaNode[] {
-    const fieldsRegex = /(?= t\.(?!index))([\s\S]*?)(?=(,|\n))/g;
+    // const fieldsRegex = /(?= t\.(?!index))([\s\S]*?)(?=(,|\n))/g;
+    const fieldsRegex = /(?= t\.(?!index))([\s\S]*?)(?=\n)/g;
     const fieldLabelRegex = /(?<=")([\s\S]*?)(?=("))/g;
     const typeLabelRegex = /(?<=t\.)([\s\S]*?)(?=( ))/g;
+    const extraInfoRegex = /(?<=,)([\s\S]*?)(?=$|(, comment))/g;
     const fields = tableText.match(fieldsRegex) || [];
 
     return fields.map((fieldText) => {
       const fieldMatch = fieldText.match(fieldLabelRegex);
       const typeMatch = fieldText.match(typeLabelRegex);
+      const extraInfo = fieldText.match(extraInfoRegex);
       const label =
         fieldMatch && typeMatch ? `${fieldMatch[0]}: ${typeMatch[0]}` : "";
+      const description = extraInfo ? extraInfo[0] : "";
+      const tooltip = extraInfo ? extraInfo[1] : "";
+
       return {
         label: label,
+        description: description,
+        tooltip: tooltip,
         isTable: false,
         children: [],
         parent: undefined,
