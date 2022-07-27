@@ -3,7 +3,7 @@
 	"displayName": "Rails Schema",
 	"description": "This extension provides a new way to see the DB tables and columns in a Rails project.",
 	"icon": "media/rails-schema-logo.png",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"publisher": "tavo",
 	"author": "Gustavo Delgado",
 	"repository": {
