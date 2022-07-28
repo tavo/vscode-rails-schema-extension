@@ -19,6 +19,17 @@ export class SchemaExplorer {
       treeDataProvider,
     });
 
+    let watcher = vscode.workspace.createFileSystemWatcher(
+      new vscode.RelativePattern(
+        vscode.workspace.workspaceFolders?.[0].uri.path || "",
+        "**/schema.rb"
+      )
+    );
+
+    watcher.onDidChange(() => {
+      treeDataProvider.refresh();
+    });
+
     let disposable = vscode.commands.registerCommand(
       "rails-schema.showRailsSchema",
       () => this.reveal()

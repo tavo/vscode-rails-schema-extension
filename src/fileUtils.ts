@@ -3,7 +3,9 @@ import { URI } from "vscode-uri";
 
 export function getSchemaUri(): URI | undefined {
   const workspaceFolders = vscode.workspace.workspaceFolders;
-  if (workspaceFolders === undefined || workspaceFolders.length === 0) return;
+  if (workspaceFolders === undefined || workspaceFolders.length === 0) {
+    return;
+  }
 
   const workspacePath = workspaceFolders[0].uri.path;
   return URI.file(workspacePath + "/db/schema.rb");

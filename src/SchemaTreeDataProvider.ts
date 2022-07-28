@@ -6,15 +6,18 @@ import SchemaNode from "./SchemaNode";
 export default class SchemaTreeDataProvider
   implements vscode.TreeDataProvider<SchemaNode>
 {
-  private _onDidChangeTreeData: vscode.EventEmitter<any> =
-    new vscode.EventEmitter<any>();
-  readonly onDidChangeTreeData: vscode.Event<any> =
-    this._onDidChangeTreeData.event;
+  private _onDidChangeTreeData: vscode.EventEmitter<
+    SchemaNode | undefined | null | void
+  > = new vscode.EventEmitter<SchemaNode | undefined | null | void>();
+  readonly onDidChangeTreeData: vscode.Event<
+    SchemaNode | undefined | null | void
+  > = this._onDidChangeTreeData.event;
 
   constructor(private readonly model: SchemaModel) {}
 
   public refresh(): any {
-    this._onDidChangeTreeData.fire(undefined);
+    this.model.refreshSchema();
+    this._onDidChangeTreeData.fire();
   }
 
   public getTreeItem(element: SchemaNode): vscode.TreeItem {
