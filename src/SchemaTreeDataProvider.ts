@@ -48,7 +48,29 @@ export default class SchemaTreeDataProvider
               "table.svg"
             ),
           }
-        : undefined,
+        : element.tooltip
+          ? {
+              light: path.join(
+                __filename,
+                "..",
+                "..",
+                "resources",
+                "light",
+                "comments.svg"
+              ),
+              dark: path.join(
+                __filename,
+                "..",
+                "..",
+                "resources",
+                "dark",
+                "comments.svg"
+              ),
+            }
+          : path.join(
+              __filename,
+              "not existing"
+            )
     };
   }
 
